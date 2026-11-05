@@ -1,9 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/main_shell.dart';
+import 'services/auth_service.dart';
+import 'services/sync_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService.instance.initialize();
+  SyncService.instance.initialize(); // Mulai background sync listener
   runApp(const SemisApp());
 }
 

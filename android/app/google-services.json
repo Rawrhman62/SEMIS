@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534125603979",
+    "project_id": "semis-e3fa8",
+    "storage_bucket": "semis-e3fa8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534125603979:android:8fac4d801fc61dbfcdf88e",
+        "android_client_info": {
+          "package_name": "com.example.smart_selectrive_mating"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4SRdUeoNCEmsgm2R17O-WZDmPRAfF0u4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

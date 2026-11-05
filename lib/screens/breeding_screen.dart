@@ -29,9 +29,9 @@ class BreedingScreen extends StatelessWidget {
           const SizedBox(height: 14),
           const _LineageCard(name: 'Bimo', id: 'SM-001', role: 'Anak', color: Color(0xFFDCFCE7), iconColor: Color(0xFF14532D)),
           Padding(padding: const EdgeInsets.only(left: 37), child: Container(width: 2, height: 22, color: const Color(0xFF86EFAC))),
-          Row(children: [
+          const Row(children: [
             Expanded(child: _ParentCard(name: 'Garuda', role: 'Ayah')),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Expanded(child: _ParentCard(name: 'Melati', role: 'Ibu')),
           ]),
           const SizedBox(height: 24),
@@ -76,7 +76,7 @@ class _LineageCard extends StatelessWidget {
       const SizedBox(width: 12),
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(name, style: TextStyle(fontWeight: FontWeight.w800, color: iconColor, fontSize: 16)),
-        Text(id, style: TextStyle(color: iconColor.withOpacity(.8), fontSize: 12)),
+        Text(id, style: TextStyle(color: iconColor.withValues(alpha: .8), fontSize: 12)),
       ])),
       Text(role, style: TextStyle(color: iconColor, fontWeight: FontWeight.bold, fontSize: 12)),
     ]),
