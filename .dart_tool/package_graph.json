@@ -8,6 +8,7 @@
       "version": "1.0.0+1",
       "dependencies": [
         "connectivity_plus",
+        "firebase_core",
         "flutter",
         "flutter_secure_storage",
         "google_sign_in",
@@ -58,6 +59,16 @@
         "stream_channel",
         "test_api",
         "vector_math"
+      ]
+    },
+    {
+      "name": "firebase_core",
+      "version": "5.1.0",
+      "dependencies": [
+        "firebase_core_platform_interface",
+        "firebase_core_web",
+        "flutter",
+        "meta"
       ]
     },
     {
@@ -271,6 +282,25 @@
         "stream_channel",
         "string_scanner",
         "term_glyph"
+      ]
+    },
+    {
+      "name": "firebase_core_web",
+      "version": "4.1.0",
+      "dependencies": [
+        "firebase_core_platform_interface",
+        "meta",
+        "web"
+      ]
+    },
+    {
+      "name": "firebase_core_platform_interface",
+      "version": "8.1.1",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "meta",
+        "plugin_platform_interface"
       ]
     },
     {
@@ -532,6 +562,13 @@
       ]
     },
     {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
       "name": "typed_data",
       "version": "1.4.0",
       "dependencies": [
@@ -542,13 +579,6 @@
       "name": "synchronized",
       "version": "3.5.0",
       "dependencies": []
-    },
-    {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
     },
     {
       "name": "platform",

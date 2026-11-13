@@ -39,9 +39,16 @@ class AuthService {
   Future<void> initialize() async {
     if (_isInitialized) return;
 
-    // Check connectivity initially
-    final online = await checkInternetConnection();
+    // Check connectivity initially secara instan tanpa blocking
+    final online = await checkInternetConnection(quick: true);
     isOnlineNotifier.value = online;
+
+    // Verifikasi DNS di latar belakang jika ada koneksi fisik
+    if (online && !kIsWeb) {
+      unawaited(checkInternetConnection().then((realOnline) {
+        isOnlineNotifier.value = realOnline;
+      }));
+    }
 
     // Monitor connectivity changes
     try {
@@ -79,7 +86,7 @@ class AuthService {
   }
 
   /// Checks if device has active internet reachability
-  Future<bool> checkInternetConnection() async {
+  Future<bool> checkInternetConnection({bool quick = false}) async {
     try {
       final connectivityResults = await _connectivity.checkConnectivity();
       if (connectivityResults.isEmpty ||
@@ -92,13 +99,12 @@ class AuthService {
       debugPrint('[AuthService] Connectivity channel note: $e');
     }
 
+    if (quick || kIsWeb) return true;
+
     try {
-      if (!kIsWeb) {
-        final lookup = await InternetAddress.lookup('google.com')
-            .timeout(const Duration(seconds: 3));
-        return lookup.isNotEmpty && lookup[0].rawAddress.isNotEmpty;
-      }
-      return true;
+      final lookup = await InternetAddress.lookup('google.com')
+          .timeout(const Duration(milliseconds: 1200));
+      return lookup.isNotEmpty && lookup[0].rawAddress.isNotEmpty;
     } catch (_) {
       return false;
     }

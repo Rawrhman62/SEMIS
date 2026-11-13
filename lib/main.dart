@@ -4,11 +4,12 @@ import 'screens/main_shell.dart';
 import 'services/auth_service.dart';
 import 'services/sync_service.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  await AuthService.instance.initialize();
-  SyncService.instance.initialize(); // Mulai background sync listener
   runApp(const SemisApp());
+  // Inisialisasi service di latar belakang secara asinkron agar frame pertama muncul instan
+  AuthService.instance.initialize();
+  SyncService.instance.initialize();
 }
 
 class SemisApp extends StatelessWidget {

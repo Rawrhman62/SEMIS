@@ -26,10 +26,14 @@ class SyncService {
     _isInitialized = true;
     debugPrint('[Sync] SyncService initialized.');
 
-    // Jika saat init sudah online, langsung coba sync
+    // Jika saat init sudah online, beri jeda agar render frame pertama tidak terganggu
     if (AuthService.instance.isOnlineNotifier.value) {
-      _triggerSync();
-      triggerBackgroundRefresh();
+      Future.delayed(const Duration(seconds: 2), () {
+        if (_isInitialized) {
+          _triggerSync();
+          triggerBackgroundRefresh();
+        }
+      });
     }
   }
 

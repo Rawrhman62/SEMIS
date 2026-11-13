@@ -2,7 +2,7 @@ import 'dart:convert';
 
 enum SyncStatus { pending, synced }
 
-/// Model data hewan ternak dengan dukungan offline-first (US-02).
+/// Model data hewan ternak dengan dukungan offline-first (US-02, FR-05, FR-06, FR-07, FR-12).
 class Livestock {
   final String id;
   final String name;
@@ -15,6 +15,10 @@ class Livestock {
   final SyncStatus statusSync;
   final DateTime updatedAt;
   final bool isDeleted; // Soft delete flag
+  final String? sireId; // ID Induk Jantan (Ayah)
+  final String? damId; // ID Induk Betina (Ibu)
+  final double? weight; // Berat badan (kg)
+  final String? notes; // Catatan tambahan
 
   const Livestock({
     required this.id,
@@ -28,6 +32,10 @@ class Livestock {
     this.statusSync = SyncStatus.pending,
     required this.updatedAt,
     this.isDeleted = false,
+    this.sireId,
+    this.damId,
+    this.weight,
+    this.notes,
   });
 
   Livestock copyWith({
@@ -42,6 +50,10 @@ class Livestock {
     SyncStatus? statusSync,
     DateTime? updatedAt,
     bool? isDeleted,
+    String? sireId,
+    String? damId,
+    double? weight,
+    String? notes,
   }) {
     return Livestock(
       id: id ?? this.id,
@@ -55,6 +67,10 @@ class Livestock {
       statusSync: statusSync ?? this.statusSync,
       updatedAt: updatedAt ?? this.updatedAt,
       isDeleted: isDeleted ?? this.isDeleted,
+      sireId: sireId ?? this.sireId,
+      damId: damId ?? this.damId,
+      weight: weight ?? this.weight,
+      notes: notes ?? this.notes,
     );
   }
 
@@ -71,6 +87,10 @@ class Livestock {
       'status_sync': statusSync.name,
       'updated_at': updatedAt.toIso8601String(),
       'is_deleted': isDeleted ? 1 : 0,
+      'sire_id': sireId,
+      'dam_id': damId,
+      'weight': weight,
+      'notes': notes,
     };
   }
 
@@ -89,6 +109,10 @@ class Livestock {
           : SyncStatus.pending,
       updatedAt: DateTime.parse(map['updated_at'] as String),
       isDeleted: (map['is_deleted'] as int? ?? 0) == 1,
+      sireId: map['sire_id'] as String?,
+      damId: map['dam_id'] as String?,
+      weight: (map['weight'] as num?)?.toDouble(),
+      notes: map['notes'] as String?,
     );
   }
 
@@ -105,6 +129,10 @@ class Livestock {
         'status_sync': statusSync.name,
         'updated_at': updatedAt.toIso8601String(),
         'is_deleted': isDeleted,
+        'sire_id': sireId,
+        'dam_id': damId,
+        'weight': weight,
+        'notes': notes,
       };
 
   static Livestock fromJson(Map<String, dynamic> json) => Livestock(
@@ -121,6 +149,10 @@ class Livestock {
             : SyncStatus.pending,
         updatedAt: DateTime.parse(json['updated_at'] as String),
         isDeleted: json['is_deleted'] as bool? ?? false,
+        sireId: json['sire_id'] as String?,
+        damId: json['dam_id'] as String?,
+        weight: (json['weight'] as num?)?.toDouble(),
+        notes: json['notes'] as String?,
       );
 
   String toJsonString() => jsonEncode(toJson());
